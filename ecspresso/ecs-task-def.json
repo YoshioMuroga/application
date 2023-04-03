@@ -1,0 +1,95 @@
+{
+  "containerDefinitions": [
+    {
+      "cpu": 0,
+      "dependsOn": [
+        {
+          "condition": "START",
+          "containerName": "php"
+        }
+      ],
+      "essential": true,
+      "image": "790709082054.dkr.ecr.ap-northeast-1.amazonaws.com/daitec-prod-dtc-nginx:latest",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/daitec-prod-dtc/nginx",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "mountPoints": [
+        {
+          "containerPath": "/var/run/php-fpm",
+          "sourceVolume": "php-fpm-socket"
+        }
+      ],
+      "name": "nginx",
+      "portMappings": [
+        {
+          "appProtocol": "",
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    {
+      "cpu": 0,
+      "essential": true,
+      "image": "790709082054.dkr.ecr.ap-northeast-1.amazonaws.com/daitec-prod-dtc-php:latest",
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/daitec-prod-dtc/php",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "mountPoints": [
+        {
+          "containerPath": "/var/run/php-fpm",
+          "sourceVolume": "php-fpm-socket"
+        }
+      ],
+      "name": "php",
+      "secrets": [
+        {
+          "name": "APP_KEY",
+          "valueFrom": "/daitec/prod/dtc/APP_KEY"
+        }
+      ]
+    }
+  ],
+  "cpu": "256",
+  "executionRoleArn": "arn:aws:iam::790709082054:role/daitec-prod-dtc-ecs-task-execution",
+  "family": "daitec-prod-dtc",
+  "ipcMode": "",
+  "memory": "512",
+  "networkMode": "awsvpc",
+  "pidMode": "",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "tags": [
+    {
+      "key": "Env",
+      "value": "prod"
+    },
+    {
+      "key": "System",
+      "value": "daitec"
+    },
+    {
+      "key": "Name",
+      "value": "daitec-prod-dtc"
+    }
+  ],
+  "taskRoleArn": "arn:aws:iam::790709082054:role/daitec-prod-dtc-ecs-task",
+  "volumes": [
+    {
+      "host": {},
+      "name": "php-fpm-socket"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "capacityProviderStrategy": [
+    {
+      "base": 0,
+      "capacityProvider": "FARGATE_SPOT",
+      "weight": 1
+    }
+  ],
+  "deploymentConfiguration": {
+    "deploymentCircuitBreaker": {
+      "enable": false,
+      "rollback": false
+    },
+    "maximumPercent": 200,
+    "minimumHealthyPercent": 100
+  },
+  "deploymentController": {
+    "type": "ECS"
+  },
+  "desiredCount": 1,
+  "enableECSManagedTags": false,
+  "enableExecuteCommand": true,
+  "healthCheckGracePeriodSeconds": 60,
+  "launchType": "",
+  "loadBalancers": [
+    {
+      "containerName": "nginx",
+      "containerPort": 80,
+      "targetGroupArn": "arn:aws:elasticloadbalancing:ap-northeast-1:790709082054:targetgroup/daitec-prod-dtc/d7c3546e532635a7"
+    }
+  ],
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "assignPublicIp": "DISABLED",
+      "securityGroups": [
+        "sg-0b425065b238148fc"
+      ],
+      "subnets": [
+        "subnet-0b0457d4e934b4a86",
+        "subnet-024a0b581becec366"
+      ]
+    }
+  },
+  "pendingCount": 0,
+  "platformFamily": "Linux",
+  "platformVersion": "1.4.0",
+  "propagateTags": "NONE",
+  "runningCount": 0,
+  "schedulingStrategy": "REPLICA",
+  "tags": [
+    {
+      "key": "Env",
+      "value": "prod"
+    },
+    {
+      "key": "System",
+      "value": "daitec"
+    },
+    {
+      "key": "Name",
+      "value": "daitec-prod-dtc"
+    }
+  ]
+}

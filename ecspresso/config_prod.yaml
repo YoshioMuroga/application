@@ -1,0 +1,10 @@
+region: ap-northeast-1
+cluster: daitec-prod-dtc
+service: daitec-prod-dtc
+service_definition: ecs-service-def.json
+task_definition: ecs-task-def.json
+timeout: 10m0s
+plugins:
+  - name: tfstate
+    config:
+      url: s3://daitecapplication-tfstate/daitec/prod/cicd/app_dtc_v1.0.0.tfstate
