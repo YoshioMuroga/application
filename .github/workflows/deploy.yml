@@ -10,7 +10,7 @@ env:
   AWS_REGION: ap-northeast-1
   IMAGE_TAG: ${{ github.sha }}
   SYSTEM_NAME: daitec 
-  SERVICE_NAME: dtcapp
+  SERVICE_NAME: dtc
 
 jobs:
   deploy:
